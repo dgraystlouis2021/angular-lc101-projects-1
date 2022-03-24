@@ -5,35 +5,53 @@
         <div class="candidates col-3">
             <h2>Candidates</h2>
             <ol>
-                <li>Use *ngFor to automatically list all of the candidates' names.</li>
+                <li *ngFor="let candidate of candidates" (click)="selected=candidate; checkCrew(selected.name)">{{candidate.name}}</li>
             </ol>
         </div>
     
         <div class="data col-3">
             <h2>Candidate Data</h2>
-            <p> <!-- Add an *ngIf to this tag to display the selected candidate's data-->
-                {{selected.name}}
+            
+            <p *ngIf="selected!==undefined"> 
+                <label>Name:&nbsp;</label>{{selected.name}}<br>
+                <label>Age:&nbsp;</label>{{selected.data.age}}<br>
+                <label>Mass:&nbsp;</label>{{selected.data.mass}}<br>
+                <label>Sidekick:&nbsp;</label>{{selected.data.sidekick}}<br>
             </p>
+        
         </div>
     
         <div class="centered col-3">
             <h2>Sidekick</h2>
             <!-- Use *ngIf and the correct placeholder to display a sidekick's image -->
-            <img src="{{placeholder}}" alt="OOPS! No image available."/>
+            <img *ngIf="selected!==undefined" src="{{selected.image}}" alt="OOPS! No image available."/>
         </div>
 
         <div class="crew col-3">
             <h2>Selected Crew</h2>
+            <div>{{crew.length}}</div>
             <ul>
-                <li>Use *ngFor to list the selected crew.</li>
+                <!--<li>Use *ngFor to list the selected crew.</li>-->
+                <li *ngFor="let member of crew">{{member}}</li>
             </ul>
             <!-- Add a "Clear Crew List" button here. -->
+            <div *ngIf="crew.length>0">
+                <button (click)="removeAllCrew()">Clear Crew List</button>
+            </div>
         </div>
     </div>
     <hr>
     <div class = 'centered'>
-        <button>Clear Data & Image</button>
+        <button (click)="selected=undefined">Clear Data & Image</button>
         <!-- Add a "Send on Mission" button here. -->
+        <!--<span *ngIf="!(crew.includes(selected.name))">-->
+        <span *ngIf="flag===false">
+        <span *ngIf="crew.length<4">
+        <span *ngIf="selected!==undefined">
+            <button (click)="addToCrew(selected.name);selected=undefined;flag=false">Send on Mission</button>
+        </span>
+        </span>
+        </span>
     </div>
 </div>
 

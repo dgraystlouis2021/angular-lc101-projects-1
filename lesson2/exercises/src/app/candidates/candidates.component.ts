@@ -18,13 +18,31 @@ export class CandidatesComponent implements OnInit {
 
   crew = [];
 
+  flag:boolean=false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
   // Code the addToCrew function here:
+  addToCrew(obj:object){
+    if(!this.crew.includes(obj)){
+      this.crew.push(obj);
+    }
+  }
 
+  removeAllCrew(){
+    while(this.crew.length>0){
+      this.crew.pop();
+    }
+  }
+
+  checkCrew(obj:object){
+    if(this.crew.includes(obj)){
+      this.flag=true;
+    }
+  }
 
   // BONUS: Code the changeMissionName function here:
 
